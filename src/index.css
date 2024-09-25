@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  font-family: "Billabong";
+  src: url("/fonts/Billabong.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background-color: black;
+  color: white;
+}
+
+hr {
+  border-color: rgb(60, 60, 60);
+}
+
+.formInput:focus-within {
+  border-color: #d4d4d8;
+}
