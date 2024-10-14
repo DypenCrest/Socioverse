@@ -1,6 +1,6 @@
 import { Skeleton } from "@mui/material";
 import React from "react";
-import Post from "./post";
+import Post from "./Post";
 
 const PostList = ({
   posts,
@@ -76,13 +76,7 @@ const PostList = ({
             </div>
           ))}
         {postList?.map((post) => {
-          return (
-            <Post
-              key={post?.id}
-              postData={post}
-              postAuth={postAuth}
-            />
-          );
+          return <Post key={post?.id} postData={post} postAuth={postAuth} />;
         })}
       </div>
     </div>
