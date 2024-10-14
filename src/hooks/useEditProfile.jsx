@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuthStore } from "../store/authStore";
-import useUserProfileStore from "../store/userProfileStore";
+import { useUserProfileStore } from "../store/userProfileStore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { firestore, storage } from "../firebase/firebase";
 import { doc, updateDoc } from "firebase/firestore";

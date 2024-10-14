@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useUserProfileStore from "../store/userProfileStore";
+import { useUserProfileStore } from "../store/userProfileStore";
 import { firestore } from "../firebase/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
