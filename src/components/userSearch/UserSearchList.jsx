@@ -84,16 +84,14 @@ const UserSearchList = ({ userList }) => {
                     <h2>{user?.fields?.fullName?.stringValue}</h2>
                   </div>
                 </div>
-                <span
-                  onClick={() => handleFollow(username)}
-                  className="text-blue-500 hover:text-blue-300 cursor-pointer"
-                >
-                  {authUser?.username == username
-                    ? null
-                    : isFollowed
-                    ? "Unfollow"
-                    : "Follow"}
-                </span>
+                {authUser?.username !== username && (
+                  <span
+                    onClick={() => handleFollow(username)}
+                    className="text-blue-500 hover:text-blue-300 cursor-pointer"
+                  >
+                    {isFollowed ? "Unfollow" : "Follow"}
+                  </span>
+                )}
               </div>
             </div>
           );

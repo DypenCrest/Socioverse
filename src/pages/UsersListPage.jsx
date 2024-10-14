@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import fetchUsers from "../apiLayer/fetch/fetchUsers";
-import UserSearchList from "../components/userSearch/userSearchList";
 import useUserList from "../hooks/useUserList";
 
 const UsersListPage = () => {
