@@ -11,9 +11,15 @@ import CommentIcon from "@mui/icons-material/Comment";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import { useQuery } from "@tanstack/react-query";
+import fetchUserDetail from "../../apiLayer/fetch/fetchUserDetail";
 
-const Post = ({ postData, postAuth }) => {
-  const author = postAuth?.fields;
+const Post = ({ postData, authorId }) => {
+  const { data } = useQuery({
+    queryKey: ["user-detail",authorId],
+    queryFn: () => fetchUserDetail(authorId),
+  });
+const author = data?.fields
   console.log(author, "author");
   const postCreatedDate = postData?.createdAt?.toDate();
   const postCreatedAt = dayjs(postCreatedDate).fromNow();
@@ -30,7 +36,7 @@ const Post = ({ postData, postAuth }) => {
   const handleClick = (e) => setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(null);
   const { handleLikePost, isLiked, likes } = useLikePost(postData);
-  console.log(likes,'likes')
+  console.log(likes, "likes");
   return (
     <div className="bg-zinc-900 p-4 rounded-lg shadow-md w-full md:w-[500px] max-h-full text-white">
       {/* <!-- User Info with Three-Dot Menu --> */}

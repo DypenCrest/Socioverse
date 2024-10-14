@@ -10,10 +10,6 @@ const HomePage = () => {
 
   const { isLoading: Loading, posts } = useGetFeedPost();
   console.log(posts, "posts");
-  const { data: postAuth } = useQuery({
-    queryKey: ["user-detail"],
-    queryFn: () => fetchUserDetail("Jrn7xalpTSMwJJgKkmH2jNRUUaQ2"),
-  });
 
   return (
     <>
@@ -24,7 +20,6 @@ const HomePage = () => {
         isLoading={isLoading}
         onLoading={Loading}
         error={error}
-        postAuth={postAuth}
       />
     </>
   );

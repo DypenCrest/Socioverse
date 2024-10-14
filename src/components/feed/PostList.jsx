@@ -1,15 +1,9 @@
 import { Skeleton } from "@mui/material";
 import React from "react";
 import Post from "./Post";
+import { useQuery } from "@tanstack/react-query";
 
-const PostList = ({
-  posts,
-  isLoading,
-  error,
-  postAuth,
-  onLoading,
-  postList,
-}) => {
+const PostList = ({ posts, isLoading, error, onLoading, postList }) => {
   console.log(posts, "props");
   console.log(postList, "propList");
 
@@ -76,7 +70,9 @@ const PostList = ({
             </div>
           ))}
         {postList?.map((post) => {
-          return <Post key={post?.id} postData={post} postAuth={postAuth} />;
+          const authorId = post?.authorId;
+          console.log(authorId, "id");
+          return <Post key={post?.id} postData={post} authorId={authorId} />;
         })}
       </div>
     </div>

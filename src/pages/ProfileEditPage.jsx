@@ -14,7 +14,9 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import useLogout from "../hooks/useLogout";
 const ProfileEditPage = () => {
+  const { handleLogOut } = useLogout();
   const authUser = useAuthStore((state) => state.user);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -45,7 +47,11 @@ const ProfileEditPage = () => {
           <DeleteOutlineIcon />
           Delete this account
         </button>
-        <button className="bg-pink-600 hover:bg-pink-900 px-6 py-3 w-full rounded-md flex justify-center items-center">
+        <button
+          type="button"
+          onClick={() => handleLogOut()}
+          className="bg-pink-600 hover:bg-pink-900 px-6 py-3 w-full rounded-md flex justify-center items-center"
+        >
           <LogoutIcon />
           Logout
         </button>
@@ -58,11 +64,12 @@ const ProfileEditPage = () => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
+          {"Confirm Account Deletion"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are You Sure? <br />
+            Are you sure you want to delete this account?
+            <br />
             <span className="text-red-500">Delete: {authUser?.username}</span>
           </DialogContentText>
         </DialogContent>
@@ -74,12 +81,14 @@ const ProfileEditPage = () => {
           }}
         >
           <button
+            type="button"
             className="bg-zinc-800 rounded-md py-1 px-3 hover:bg-zinc-700"
             onClick={handleClose}
           >
             Cancel
           </button>
           <button
+            type="button"
             className="bg-red-600 hover:bg-red-900 rounded-md py-1 px-3"
             onClick={() => deleteMutation(authUser?.uid)}
             autoFocus
