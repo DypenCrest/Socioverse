@@ -1,14 +1,9 @@
-import React from "react";
-import axiosInstance from "../api";
+import { axiosInstance } from "../api";
 
 const fetchUsers = async () => {
-  try {
-    const res = await axiosInstance.get("/users");
-    console.log(res.data, "fetch");
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+  const res = await axiosInstance.get("users");
+
+  return res.data.documents;
 };
 
 export default fetchUsers;
