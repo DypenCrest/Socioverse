@@ -1,9 +1,8 @@
-import { Avatar, AvatarGroup } from "@mui/material";
+import { Avatar } from "@mui/material";
 import React, { useState } from "react";
-import { useAuthStore } from "../../store/authStore";
-import useProfileData from "../../hooks/useProfileData";
-import useUserProfileStore from "../../store/UserProfileStore";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../store/authStore";
+import { useUserProfileStore } from "../../store/userProfileStore";
 
 const ProfileHead = () => {
   const user = useAuthStore((state) => state.user);
