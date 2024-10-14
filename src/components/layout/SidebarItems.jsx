@@ -1,21 +1,20 @@
 import React, { useState } from "react";
-import DialogBox from "../../feed/dialog/DialogBox";
+import DialogBox from "../feed/dialog/DialogBox";
 import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import Avatar from "@mui/material/Avatar";
-import { useAuthStore } from "../../../store/authStore";
+import { useAuthStore } from "../../store/authStore";
 
-const SidebarItems = () => {
+export const SidebarItems = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const handleDialogOpen = () => setIsDialogOpen(true);
   const handleDialogClose = () => setIsDialogOpen(false);
   const navigate = useNavigate();
   const authUser = useAuthStore((state) => state.user);
   console.log(authUser, "authUser");
-  const sidebarItems = [
+  const sideItems = [
     {
       icon: <HomeIcon fontSize="large" />,
       name: "Home",
@@ -46,7 +45,7 @@ const SidebarItems = () => {
 
   return (
     <div className="flex md:flex-col items-center md:items-start justify-between md:gap-6 bg-red">
-      {sidebarItems?.map((item, index) => (
+      {sideItems?.map((item, index) => (
         <button
           key={index}
           className="flex items-center justify-center md:justify-start space-x-2 hover:bg-zinc-900 w-full p-2 rounded-lg"
@@ -64,5 +63,3 @@ const SidebarItems = () => {
     </div>
   );
 };
-
-export default SidebarItems;

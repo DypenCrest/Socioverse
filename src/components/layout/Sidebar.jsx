@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import useLogout from "../../hooks/useLogout";
 import { useAuthStore } from "../../store/authStore";
-import SidebarItems from "./SidebarItems/SidebarItems";
+import { SidebarItems } from "./SidebarItems";
 
 const Sidebar = () => {
   const { handleLogOut } = useLogout();
