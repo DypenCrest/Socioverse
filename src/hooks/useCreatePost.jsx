@@ -18,7 +18,7 @@ const useCreatePost = () => {
     const postData = {
       postId: "",
       caption: caption,
-      likes: ["test"],
+      likes: [],
       imageURL: "",
       createdAt: new Date(),
       authorId: authUser.uid,
