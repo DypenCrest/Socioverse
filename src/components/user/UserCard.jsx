@@ -10,10 +10,10 @@ import { useAuthStore } from "../../store/authStore";
 import useDayjs from "../../hooks/useDayjs";
 import useLikePost from "../../hooks/useLikePost";
 import CardOnly from "./CardOnly";
+import { useUserProfileStore } from "../../store/userProfileStore";
 
 const UserCard = ({ posts, Loading }) => {
-
-  const ownProfile = useAuthStore((state) => state.user);
+  const ownProfile = useUserProfileStore((state) => state.userProfile);
   console.log(ownProfile, "ownprofile");
   const ownPosts = posts?.filter((post) => post?.authorId === ownProfile?.uid);
   console.log(ownPosts, "ownposts");
