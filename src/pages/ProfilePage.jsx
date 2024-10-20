@@ -5,9 +5,10 @@ import usePosts from "../hooks/usePosts";
 import { useParams } from "react-router-dom";
 import useProfileByUsername from "../hooks/useProfileByUsername";
 import { Skeleton } from "@mui/material";
+import useGetFeedPost from "../hooks/useGetFeedPost";
 
 const ProfilePage = () => {
-  const { data: posts } = usePosts();
+  const { isLoading: Loading, posts } = useGetFeedPost();
   const { username } = useParams();
   console.log(username, "params");
   const { isLoading, userProfile } = useProfileByUsername(username);

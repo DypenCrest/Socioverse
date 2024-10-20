@@ -1,51 +1,31 @@
 import React, { useState } from "react";
 import useLikePost from "../../hooks/useLikePost";
-import { Avatar } from "@mui/material";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-dayjs.extend(relativeTime);
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import CommentIcon from "@mui/icons-material/Comment";
+import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
+import useDayjs from "../../hooks/useDayjs";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import { useQuery } from "@tanstack/react-query";
-import fetchUserDetail from "../../apiLayer/fetch/fetchUserDetail";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
+import CommentIcon from "@mui/icons-material/Comment";
 
-const Post = ({ postData, authorId }) => {
-  const { data } = useQuery({
-    queryKey: ["user-detail",authorId],
-    queryFn: () => fetchUserDetail(authorId),
-  });
-const author = data?.fields
-  console.log(author, "author");
-  const postCreatedDate = postData?.createdAt?.toDate();
-  const postCreatedAt = dayjs(postCreatedDate).fromNow();
+const CardOnly = ({ post, ownProfile }) => {
+  const { handleLikePost, isLiked, likes } = useLikePost(post);
+  const handleClick = (e) => setAnchorEl(e.currentTarget);
+  const handleClose = () => setAnchorEl(null);
   const options = ["Follow", "View profile"];
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (e) => setAnchorEl(e.currentTarget);
-  const handleClose = () => setAnchorEl(null);
-  const { handleLikePost, isLiked, likes } = useLikePost(postData);
-  console.log(likes, "likes");
   return (
-    <div className="bg-zinc-900 p-4 rounded-lg shadow-md w-full md:w-[500px] max-h-full text-white">
+    <div className="bg-zinc-900 p-4 rounded-lg shadow-md md:w-[500px] max-h-full text-white">
       {/* <!-- User Info with Three-Dot Menu --> */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2 h-full w-full">
-          <Avatar
-            alt={author?.username?.stringValue}
-            src={author?.profilePicURL?.stringValue}
-          />
+          <Avatar alt={ownProfile?.username} src={ownProfile?.profilePicURL} />
           <div>
-            <p className=" font-semibold">{author?.username?.stringValue}</p>
-            <p className="text-zinc-500 text-sm">{postCreatedAt}</p>
+            <p className="font-semibold">{ownProfile?.username}</p>
+            <p className="text-zinc-500 text-sm">{useDayjs(post?.createdAt)}</p>
           </div>
         </div>
         <div className="text-zinc-300 cursor-pointer">
-          {/* <!-- Three-dot menu icon --> */}
           <IconButton
             color="inherit"
             className="hover:text-purple-500"
@@ -68,9 +48,9 @@ const author = data?.fields
               },
             }}
           >
-            {options.map((option, index) => (
+            {options.map((option, idx) => (
               <MenuItem
-                key={index}
+                key={idx}
                 onClick={handleClose}
                 sx={{
                   "&:hover": {
@@ -86,16 +66,13 @@ const author = data?.fields
       </div>
       {/* <!-- description --> */}
       <div className="mb-4">
-        <p className="text-zinc-300">
-          {postData?.caption}
-          <br />
-        </p>
+        <p className="text-zinc-300">{post?.caption}</p>
       </div>
       {/* <!-- Image --> */}
-      {postData?.imageURL && (
+      {post?.imageURL && (
         <div className="mb-4 w-full md:h-[350px] border border-zinc-800 bg-black flex items-center justify-center rounded-md overflow-hidden">
           <img
-            src={postData?.imageURL}
+            src={post?.imageURL}
             alt="Post Image"
             className="w-full h-full object-contain rounded-md"
           />
@@ -105,14 +82,27 @@ const author = data?.fields
       {/* <!-- Like and Comment Section --> */}
       <div className="flex flex-col justify-between text-gray-400">
         <div className="flex items-center space-x-2">
-          <button onClick={handleLikePost}>
+          <button
+            onClick={handleLikePost}
+            className="flex justify-center items-center gap-2 px-2 hover:bg-zinc-800 rounded-full p-1"
+          >
             {isLiked ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
           </button>
-          {likes > 0 && <span>{likes} likes</span>}
         </div>
+        <div className="flex flex-col gap-2">
+          <span>{likes} likes</span>
+        </div>
+      </div>
+      {/* leave Comment */}
+      <div>
+        <input
+          type="text"
+          placeholder="Add a comment..."
+          className="mt-4 bg-transparent w-full focus:outline-none border-b border-zinc-700"
+        />
       </div>
     </div>
   );
 };
 
-export default Post;
+export default CardOnly;

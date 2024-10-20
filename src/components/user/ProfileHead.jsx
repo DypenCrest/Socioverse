@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../store/authStore";
 import { useUserProfileStore } from "../../store/userProfileStore";
+import useFollowUser from "../../hooks/useFollowUser";
 
 const ProfileHead = () => {
   const user = useAuthStore((state) => state.user);
@@ -11,7 +12,10 @@ const ProfileHead = () => {
   console.log(userProfile, "userprofileheader");
   const ownProfile = user?.username === userProfile?.username;
   const navigate = useNavigate();
-  const [follow, setFollow] = useState(false);
+  const { isFollowing, handleFollowUser, isUpdating } = useFollowUser(
+    userProfile?.uid
+  );
+  console.log(isFollowing, "isfollowing");
 
   return (
     <div className="flex items-start gap-8  md:gap-16">
@@ -40,9 +44,10 @@ const ProfileHead = () => {
             <button
               type="button"
               className="bg-blue-600 hover:bg-blue-900 rounded-lg px-4 py-1"
-              onClick={() => setFollow(!follow)}
+              onClick={handleFollowUser}
+              disabled={isUpdating}
             >
-              {follow ? "Unfollow" : "Follow"}
+              {isFollowing ? "Unfollow" : "Follow"}
             </button>
           )}
         </div>
