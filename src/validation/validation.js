@@ -16,7 +16,7 @@ export const registerSchema = z
     password: z
       .string()
       .min(6, "Password must be at least 6 characters")
-      .max(8, "Password must be 8 characters or less")
+      .max(16, "Password must be 16 characters or less")
       .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
       .regex(/[a-z]/, "Password must contain at least one lowercase letter")
       .regex(/[0-9]/, "Password must contain at least one number")
